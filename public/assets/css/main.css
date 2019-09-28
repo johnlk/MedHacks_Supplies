@@ -107,7 +107,17 @@ header ul li:first-child {
 .page-directions {
 	text-align: center;
     font-size: 24px;
-    margin-top: 25px;
+    margin-top: 55px;
+}
+
+.table-container{
+	width: 75%;
+	margin: 0 auto;
+    border: 1px solid;
+    border-radius: 15px;
+}
+.table-container table{
+	margin: 0;
 }
 
 /* Basic */
