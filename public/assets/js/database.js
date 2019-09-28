@@ -2,8 +2,7 @@ function createHospital(hospitalObj) {
   return new Promise((resolve, reject) => {
 
     //attribute validations
-    if(!hospitalObj.hasOwnProperty('name') || !hospitalObj.hasOwnProperty('location')
-      || !hospitalObj.hasOwnProperty('donator')){
+    if(!hospitalObj.hasOwnProperty('name') || !hospitalObj.hasOwnProperty('location')){
       reject('Hospitals must have a name, a location, and donotor info passed');
     }
 

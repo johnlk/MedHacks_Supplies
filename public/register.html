@@ -8,42 +8,75 @@
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 	</head>
 	<body class="is-preload">
-		<h1 class="page-directions">Register
-		</h1>
+		<h1 class="page-directions">Register</h1>
 		<div class="centered-container">
-		<form method="post" action="#">
-											<div class="row gtr-uniform">
-												<div class="col-12 col-12-xsmall">
-													<label for="demo-name">Hospital Name</label>
-													<input type="text" name="demo-name" id="demo-name" value="" />
-												</div>
-												<div class="col-12 col-12-xsmall">
-													<label for="demo-email">Email</label>
-													<input type="email" name="demo-email" id="demo-email" value="" />
-												</div>
-												<div class="col-12 col-12-xsmall">
-													<label for="demo-email">Location</label>
-													<input type="text" name="demo-email" id="demo-email" value="" />
-												</div>
-												<div class="col-6 col-12-small">
-													<input type="checkbox" id="demo-human" name="demo-human" >
-													<label for="I am donating supplies">I am donating supplies</label>
-												</div>
-												<div class="col-12 col-12-xsmall">
-													<label for="demo-email">Password</label>
-													<input type="password" name="demo-email" id="demo-email" value="" />
-												</div>
-												<div class="col-12">
-													<ul class="actions">
-														<li><input type="submit" value="Create Account" class="primary" /></li>
-													</ul>
-												</div>
-											</div>
-										</form>
-									</div>
+      <div class="row gtr-uniform">
+        <div class="col-12 col-12-xsmall">
+          <label for="demo-name">Hospital Name</label>
+          <input type="text" name="demo-name" id="hospital" value="" />
+        </div>
+        <div class="col-12 col-12-xsmall">
+          <label for="demo-email">Email</label>
+          <input type="email" name="demo-email" id="email" value="" />
+        </div>
+        <div class="col-6 col-12-xsmall">
+          <label for="demo-email">City</label>
+          <input type="text" name="demo-email" id="city" value="" />
+        </div>
+        <div class="col-6 col-12-xsmall">
+          <label for="demo-email">State</label>
+          <input type="text" name="demo-email" id="state" value="" />
+        </div>
+        <div class="col-12 col-12-xsmall">
+          <label for="demo-email">Password</label>
+          <input type="password" name="demo-email" id="password" value="" />
+        </div>
+        <div class="col-12">
+          <ul class="actions">
+            <li><input type="submit" id="createAccount" value="Create Account" class="primary" /></li>
+          </ul>
+        </div>
+      </div>
+		</div>
+  </body>
 
-	</body>
+  <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase.js"></script>
+  <script src="assets/js/init.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/database.js"></script>
+
+  <script>
+    var createAccountButton = document.getElementById('createAccount');
+
+    createAccountButton.addEventListener('click', initiateCreateAccount);
+
+    function initiateCreateAccount(){
+      var hospitalName = document.getElementById('hospital').value;
+      var email = document.getElementById('email').value;
+      var city = document.getElementById('city').value;
+      var state = document.getElementById('state').value;
+      var password = document.getElementById('password').value;
+
+      if(hospitalName == '' || city == '' || state == '' || email == '' || password == ''){
+        alert('Please fill in all fields');
+      }
+
+      createUser(email, password).then((response) => {
+        var hospitalObj = {
+          name: hospitalName,
+          location: city + " " + state
+        };
+
+        createHospital(hospitalObj).then((response) => {
+          window.location = './leaderboard.html';
+        }).catch((error) => {
+          alert(error);
+        });
+
+      }).catch((error) => {
+        alert(error);
+      });
+    }
+  </script>
 </html>
-
-
 
