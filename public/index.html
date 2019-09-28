@@ -181,11 +181,16 @@
       <script src="assets/js/database.js"></script>
 
       <script>
-        var productObj = {
-          description: 'asdf',
-          name: 'asdfasdf'
+        var hostipal = {
+          location: 'shit',
+          name: 'tits',
+          donator: true
         };
-        createProduct(productObj);
+        createHospital(hostipal).then((repsonse) => {
+          console.log(repsonse);
+        }).catch((error) => {
+          console.log(error);
+        })
       </script>
 	</body>
 </html>
