@@ -3,17 +3,31 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome to Firebase Hosting</title>
+    <title>Med Supplies</title>
 
     <!-- update the version number as needed -->
     <script defer src="/__/firebase/7.0.0/firebase-app.js"></script>
     <!-- include only the Firebase features as you need -->
     <script defer src="/__/firebase/7.0.0/firebase-auth.js"></script>
-    <script defer src="/__/firebase/7.0.0/firebase-database.js"></script>
-    <script defer src="/__/firebase/7.0.0/firebase-messaging.js"></script>
-    <script defer src="/__/firebase/7.0.0/firebase-storage.js"></script>
+    <script defer src="/__/firebase/7.0.0/firebase-firestore.js"></script>
     <!-- initialize the SDK after all desired features are loaded -->
     <script defer src="/__/firebase/init.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-app.js"></script>
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyCCA2iLuHqNJ--qvqUCsMsC4givdKKz6gE",
+        authDomain: "medhacksupplies.firebaseapp.com",
+        databaseURL: "https://medhacksupplies.firebaseio.com",
+        projectId: "medhacksupplies",
+        storageBucket: "medhacksupplies.appspot.com",
+        messagingSenderId: "19611715392",
+        appId: "1:19611715392:web:77061f39b6f099037fdca5"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+    </script>
 
     <style media="screen">
       body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
@@ -41,16 +55,6 @@
 
     <script>
       document.addEventListener('DOMContentLoaded', function() {
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        // // The Firebase SDK is initialized and available here!
-        //
-        // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-        // firebase.messaging().requestPermission().then(() => { });
-        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-        //
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-
         try {
           let app = firebase.app();
           let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
