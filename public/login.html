@@ -11,26 +11,51 @@
 		<h1 class="page-directions">Login
 		</h1>
 		<div class="centered-container">
-		<form method="post" action="#">
-											<div class="row gtr-uniform">
+				<div class="row gtr-uniform">
 												
 												<div class="col-12 col-12-xsmall">
 													<label for="demo-email">Email</label>
-													<input type="email" name="demo-email" id="demo-email" value="" />
+													<input type="email" name="demo-email" id="email" value="" />
 												</div>
 												<div class="col-12 col-12-xsmall">
 													<label for="demo-email">Password</label>
-													<input type="password" name="demo-email" id="demo-email" value="" />
+													<input type="password" name="demo-email" id="password" value="" />
 												</div>
 												<div class="col-12">
 													<ul class="actions">
-														<li><input type="submit" value="Login" class="primary" /></li>
+														<li><input id="login" type="submit" value="Login" class="primary" /></li>
 														<li><input type="reset" value="Forgot Password" /></li>
 													</ul>
 												</div>
 											</div>
-										</form>
 									</div>
 
-	</body>
+  </body>
+  
+  <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase.js"></script>
+  <script src="assets/js/init.js"></script>
+  <script src="assets/js/auth.js"></script>
+
+  <script>
+    var loginButton = document.getElementById('login');
+
+    loginButton.addEventListener('click', intiateLogin);
+
+    function intiateLogin(){
+      var email = document.getElementById('email').value;
+      var password = document.getElementById('password').value;
+
+
+      if(email == '' || password == ''){
+        alert('input an email and a password');
+      }
+
+      login(email, password).then((response) => {
+        window.location = "./leaderboard.html";
+      }).catch((error) => {
+        alert(error);
+      });
+    }
+
+  </script>
 </html>

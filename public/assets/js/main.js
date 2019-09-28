@@ -28,8 +28,7 @@
 		});
 
 	// Header.
-		if ($banner.length > 0
-		&&	$header.hasClass('alt')) {
+		if ($banner.length > 0&&	$header.hasClass('alt')) {
 
 			$window.on('resize', function() { $window.trigger('scroll'); });
 
@@ -44,9 +43,7 @@
 
 	// Menu.
 		var $menu = $('#menu');
-
 		$menu._locked = false;
-
 		$menu._lock = function() {
 
 			if ($menu._locked)
@@ -59,39 +56,30 @@
 			}, 350);
 
 			return true;
-
 		};
 
 		$menu._show = function() {
-
 			if ($menu._lock())
 				$body.addClass('is-menu-visible');
-
 		};
 
 		$menu._hide = function() {
-
 			if ($menu._lock())
 				$body.removeClass('is-menu-visible');
-
 		};
 
 		$menu._toggle = function() {
-
 			if ($menu._lock())
 				$body.toggleClass('is-menu-visible');
-
 		};
 
 		$menu
 			.appendTo($body)
 			.on('click', function(event) {
-
 				event.stopPropagation();
 
 				// Hide.
 					$menu._hide();
-
 			})
 			.find('.inner')
 				.on('click', '.close', function(event) {
@@ -124,22 +112,16 @@
 
 				});
 
-		$body
-			.on('click', 'a[href="#menu"]', function(event) {
-
+		$body.on('click', 'a[href="#menu"]', function(event) {
 				event.stopPropagation();
 				event.preventDefault();
 
 				// Toggle.
 					$menu._toggle();
-
 			})
 			.on('keydown', function(event) {
-
 				// Hide on escape.
 					if (event.keyCode == 27)
 						$menu._hide();
-
 			});
-
 })(jQuery);
