@@ -1,1 +1,15 @@
 <h1>I like boobs!</h1>
+<button id="logout">Logout</button>
+
+<script src="https://www.gstatic.com/firebasejs/5.9.4/firebase.js"></script>
+<script src="assets/js/init.js"></script>
+<script src="assets/js/auth.js"></script>
+<script>
+  document.getElementById('logout').addEventListener('click', function(){
+    signOutUser().then((response) => {
+      window.location = './index.html';
+    }).catch((error) => {
+      alert(error);
+    })
+  })
+</script>
