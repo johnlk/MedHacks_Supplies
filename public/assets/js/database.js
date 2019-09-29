@@ -49,6 +49,23 @@ function createNeed(needObj){
   });
 }
 
+function createSpareSupplies(donationObj){
+  return new Promise((resolve, reject) => {
+
+    if(!donationObj.hasOwnProperty('productID') || !donationObj.hasOwnProperty('quantity')
+      || !donationObj.hasOwnProperty('hospitalID')){
+      reject('Donation requires a productID, hospitalID, and a quantity');
+    }
+
+    database.collection("spare_supplies").add(donationObj).then(() => {
+      resolve('success');
+    }).catch((error) => {
+      reject(error.message);
+    });
+
+  });
+}
+
 
 function completeTransaction(transactionObj){
   return new Promise((resolve, reject) => {
@@ -93,8 +110,18 @@ function searchForCompletedTransaction(){
 }
 
 function getTotalPoints(hospitalID){
-  
+  return new Promise((resolve, reject) => {
+    database.collection("transactions").get().then(function(querySnapshot) {
+      var total = 0;
+      querySnapshot.forEach(function(doc) {
+        if(doc.data().donorID == hospitalID){
+          total += doc.data().points;
+        }
+      });
+      resolve(total);
+    }).catch((error) => {
+      reject(error.message);
+    });
+  })
 }
-
-
 
