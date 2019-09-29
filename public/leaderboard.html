@@ -43,22 +43,31 @@
     var hospitals = [];
 
     database.collection("hospitals").get().then(function(querySnapshot) {
-      querySnapshot.forEach(function(doc) {
 
-        // getTotalPoints(doc.id).then((result) => {
+      var count = 0;
+
+      querySnapshot.forEach(function(doc) {
+        getTotalPoints(doc.id).then((result) => {
           hospitals.push({
             location: doc.data().location,
             name: doc.data().name,
-            points: 100
+            points: result
           });
-        // })
-        // console.log(doc.id, " => ", doc.data());
+          count++;
+
+          if(count == 10){
+            //sort hospitals
+            hospitals.sort(function(a, b){
+              return b.points - a.points;
+            });
+
+            for(var i = 0; i < hospitals.length && i < 10; i++){
+              tableBody.innerHTML += '<tr><td>' + (i+1) + '</td><td>' + hospitals[i].name + '</td>' +
+                '<td>' + hospitals[i].location + '</td><td>' + hospitals[i].points + '</td></tr>';
+            }
+          }  
+        })
       });
-    }).then(() => {
-      for(var i = 0; i < hospitals.length && i < 10; i++){
-        tableBody.innerHTML += '<tr><td>' + (i+1) + '</td><td>' + hospitals[i].name + '</td>' +
-          '<td>' + hospitals[i].location + '</td><td>' + hospitals[i].points + '</td></tr>';
-      }
-    })
+    });
   </script>
 </html>
