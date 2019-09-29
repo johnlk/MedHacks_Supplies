@@ -112,6 +112,8 @@
           createSpareSupplies(donationObj).then((response) => {
             alert(response);
             hideLoading();
+
+            checkAndCompleteTransactions();
           }).catch((error) => {
             alert(error);
             hideLoading();

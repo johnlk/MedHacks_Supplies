@@ -25,7 +25,7 @@
 					</header>
 
         <h1 class="page-directions">Submit your request for Supplies</h1>
-        
+
         <div class="centered-container">
             <div class="row gtr-uniform">
                 <div class="col-12">
@@ -77,6 +77,8 @@
       <script src="assets/js/loading.js"></script>
 
       <script>
+        checkAndCompleteTransactions();
+
         //populate hospital options
         var hospitals = document.getElementById('hospital');
         database.collection("hospitals").get().then(function(querySnapshot) {
@@ -112,6 +114,8 @@
           createNeed(needObj).then((response) => {
             alert(response);
             hideLoading();
+
+            checkAndCompleteTransactions();
           }).catch((error) => {
             alert(error);
             hideLoading();
