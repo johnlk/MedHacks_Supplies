@@ -4,7 +4,8 @@
 		<title>Solid State by HTML5 UP</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/loading.css">
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 	</head>
 	<body class="is-preload">
@@ -37,13 +38,21 @@
           </ul>
         </div>
       </div>
-		</div>
+    </div>
+    
+    <div id="loading">
+      <div>
+        <img src="assets/css/images/loading.gif" />
+      </div>
+    </div>
+
   </body>
 
   <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase.js"></script>
   <script src="assets/js/init.js"></script>
   <script src="assets/js/auth.js"></script>
   <script src="assets/js/database.js"></script>
+  <script src="assets/js/loading.js"></script>
 
   <script>
     var createAccountButton = document.getElementById('createAccount');
@@ -51,6 +60,7 @@
     createAccountButton.addEventListener('click', initiateCreateAccount);
 
     function initiateCreateAccount(){
+      showLoading();
       var hospitalName = document.getElementById('hospital').value;
       var email = document.getElementById('email').value;
       var city = document.getElementById('city').value;
@@ -69,8 +79,10 @@
 
         createHospital(hospitalObj).then((response) => {
           window.location = './leaderboard.html';
+          hideLoading();
         }).catch((error) => {
           alert(error);
+          hideLoading();
         });
 
       }).catch((error) => {
