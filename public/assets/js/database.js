@@ -110,8 +110,18 @@ function searchForCompletedTransaction(){
 }
 
 function getTotalPoints(hospitalID){
-  
+  return new Promise((resolve, reject) => {
+    database.collection("transactions").get().then(function(querySnapshot) {
+      var total = 0;
+      querySnapshot.forEach(function(doc) {
+        if(doc.data().donorID == hospitalID){
+          total += doc.data().points;
+        }
+      });
+      resolve(total);
+    }).catch((error) => {
+      reject(error.message);
+    });
+  })
 }
-
-
 

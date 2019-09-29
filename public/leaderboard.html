@@ -27,25 +27,7 @@
             <td>Rank</td><td>Name</td><td>Location</td><td>Points</td>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>1</td><td>Johns Hopkins</td><td>Baltimore</td><td>100</td>
-          </tr>
-          <tr>
-            <td>1</td><td>Johns Hopkins</td><td>Baltimore</td><td>100</td>
-          </tr>
-          <tr>
-            <td>1</td><td>Johns Hopkins</td><td>Baltimore</td><td>100</td>
-          </tr>
-          <tr>
-            <td>1</td><td>Johns Hopkins</td><td>Baltimore</td><td>100</td>
-          </tr>
-          <tr>
-            <td>1</td><td>Johns Hopkins</td><td>Baltimore</td><td>100</td>
-          </tr>
-          <tr>
-            <td>1</td><td>Johns Hopkins</td><td>Baltimore</td><td>100</td>
-          </tr>
+        <tbody id="body">          
         </tbody>
       </table>
 		</div>
@@ -53,6 +35,31 @@
 
 	<script src="https://www.gstatic.com/firebasejs/5.9.4/firebase.js"></script>
 	<script src="assets/js/init.js"></script>
-	<script src="assets/js/auth.js"></script>
-	<script src="assets/js/manageHeader.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/database.js"></script>
+  <script src="assets/js/manageHeader.js"></script>
+  
+  <script>
+    var tableBody = document.getElementById('body');
+    var hospitals = [];
+
+    database.collection("hospitals").get().then(function(querySnapshot) {
+      querySnapshot.forEach(function(doc) {
+
+        // getTotalPoints(doc.id).then((result) => {
+          hospitals.push({
+            location: doc.data().location,
+            name: doc.data().name,
+            points: 100
+          });
+        // })
+        // console.log(doc.id, " => ", doc.data());
+      });
+    }).then(() => {
+      for(var i = 0; i < hospitals.length && i < 10; i++){
+        tableBody.innerHTML += '<tr><td>' + (i+1) + '</td><td>' + hospitals[i].name + '</td>' +
+          '<td>' + hospitals[i].location + '</td><td>' + hospitals[i].points + '</td></tr>';
+      }
+    })
+  </script>
 </html>
