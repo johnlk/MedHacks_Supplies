@@ -49,6 +49,23 @@ function createNeed(needObj){
   });
 }
 
+function createSpareSupplies(donationObj){
+  return new Promise((resolve, reject) => {
+
+    if(!donationObj.hasOwnProperty('productID') || !donationObj.hasOwnProperty('quantity')
+      || !donationObj.hasOwnProperty('hospitalID')){
+      reject('Donation requires a productID, hospitalID, and a quantity');
+    }
+
+    database.collection("spare_supplies").add(donationObj).then(() => {
+      resolve('success');
+    }).catch((error) => {
+      reject(error.message);
+    });
+
+  });
+}
+
 
 function completeTransaction(transactionObj){
   return new Promise((resolve, reject) => {

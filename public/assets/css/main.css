@@ -82,8 +82,8 @@ input, select, textarea {
 header ul li {
 	list-style-type: none;
 	display: inline-block;
-    margin: 0 20px;
-    float: right;
+  margin: 0 20px;
+  float: right;
 }
 
 header ul li:first-child {
@@ -101,7 +101,7 @@ header ul li:first-child {
 
 .centered-container {
 	width: 50%;
-    margin: 50px auto;
+  margin: 70px auto;
 }
 
 .page-directions {
@@ -113,9 +113,10 @@ header ul li:first-child {
 .table-container{
 	width: 75%;
 	margin: 0 auto;
-    border: 1px solid;
-    border-radius: 15px;
+  border: 1px solid;
+  border-radius: 15px;
 }
+
 .table-container table{
 	margin: 0;
 }
