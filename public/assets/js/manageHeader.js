@@ -7,4 +7,6 @@ isUserSignedIn().then((response) => {
 			document.location.reload();
 		})
 	})
+}).catch((error) => {
+	console.log(error);
 })
