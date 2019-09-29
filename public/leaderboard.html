@@ -8,14 +8,14 @@
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 	</head>
 	<body class="is-preload">
-		<header id="header" class="alt">
+					<header id="header" class="alt">
 						<ul>
-							<li><a href="#">MedSupplies</a></li>
-							<li>Donate</li>
-							<li>Recieve</li>
-							<li>Contribute Financially</li>
-							<li>Hospital Leaderboard</li>
-							<li><a href="login.html">Sign in</a></li>
+							<li><a href="index.html">MedSupplies</a></li>
+							<li id="signInLogOut"><a href="login.html">Sign in</a></li>
+							<li><a href="donate.html">Equipment Donations</a></li>
+							<li><a href="recieve.html">Recieve</a></li>
+							<li><a href="monetary.html">Monetary Donations</a></li>
+							<li><a href="leaderboard.html">Hospital Leaderboard</a></li>
 						</ul>
 					</header>
 		<h1 class="page-directions">Donation Leaderboard</h1>
@@ -76,15 +76,8 @@
 
 <!-- <button id="logout">Logout</button> -->
 
-<script src="https://www.gstatic.com/firebasejs/5.9.4/firebase.js"></script>
-<script src="assets/js/init.js"></script>
-<script src="assets/js/auth.js"></script>
-<script>
-  document.getElementById('logout').addEventListener('click', function(){
-    signOutUser().then((response) => {
-      window.location = './index.html';
-    }).catch((error) => {
-      alert(error);
-    })
-  })
-</script>
+	<script src="https://www.gstatic.com/firebasejs/5.9.4/firebase.js"></script>
+	<script src="assets/js/init.js"></script>
+	<script src="assets/js/auth.js"></script>
+	<script src="assets/js/manageHeader.js"></script>
+</html>
