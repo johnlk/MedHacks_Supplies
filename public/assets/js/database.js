@@ -76,22 +76,26 @@ function completeTransaction(transactionObj){
     }
 
     var needFulfilled = database.collection("needs").doc(transactionObj['needID']);
-    var pointsAwarded;
 
     needFulfilled.get().then((querySnapshot) => {
       var productID = querySnapshot.data().productID;
       var quantity = querySnapshot.data().quantity;
 
-      pointsAwarded = computePoints(productID, quantity);
+      computePoints(productID, quantity).then((response) => {
+        transactionObj['points'] = response;
 
-      transactionObj['points'] = pointsAwarded;
+        database.collection("transactions").add(transactionObj).then(() => {
 
-      database.collection("transactions").add(transactionObj).then(() => {
-        resolve('success');
-      }).catch((error) => {
-        reject(error.message);
+          needFulfilled.delete().then((response) => {
+            resolve('success');
+          }).catch((error) => {
+            reject(error.message);
+          });
+
+        }).catch((error) => {
+          reject(error.message);
+        });
       });
-
     }).catch((error) => {
       reject(error.message);
     });
@@ -100,13 +104,69 @@ function completeTransaction(transactionObj){
 }
 
 function computePoints(productID, quantity){
-  return 100;
+  return new Promise((resolve, reject) => {
+    database.collection("products").doc(productID).get().then((snapshot) => {
+      resolve(snapshot.data().pointMultiplier * quantity);
+    }).catch((error) => {
+      reject(error.message);
+    })
+  });
+}
+
+function sufficientSupply(productID, quantity){
+  return new Promise((resolve, reject) => {
+    database.collection("spare_supplies").get().then(function(querySnapshot) {
+      querySnapshot.forEach(function(doc) {
+        if(doc.data().productID == productID && doc.data().quantity >= quantity){
+          resolve(doc.id);
+        }
+      });
+    }).then((response) => {
+      reject('no sufficient supply');
+    });
+  });
 }
 
 //on donation, or request for product, see if there is
-//already an existing match
-function searchForCompletedTransaction(){
+//already an existing match for supplies
 
+//check all needs with existing supplies, 
+//if match create transaction, then decrement
+//the spare_supply numbers
+function checkAndCompleteTransactions(){
+  database.collection("needs").get().then(function(querySnapshot) {
+    querySnapshot.forEach(function(doc) {
+      //check if extra supply exists for product with sufficient quantity
+      sufficientSupply(doc.data().productID, doc.data().quantity).then((response) => {
+        var spareSupplyID = response;
+
+        database.collection("spare_supplies").doc(spareSupplyID).get().then((snapshot) => {
+
+          var transactionObj = {
+            donorID: snapshot.data().hospitalID,
+            recieverID: doc.data().hospitalID,
+            needID: doc.id
+          };
+
+          //complete the transaction
+          completeTransaction(transactionObj).then((response) => {
+            if(snapshot.data().quantity > doc.data().quantity){
+              //decrement quantity by 
+              //snapshot.data().quantity = snapshot.data().quantity - doc.data().quantity
+              database.collection("spare_supplies").doc(spareSupplyID).set({
+                hospitalID: snapshot.data().hospitalID,
+                productID: snapshot.data().productID,
+                quantity: snapshot.data().quantity - doc.data().quantity
+              });
+            }else if(snapshot.data().quantity == doc.data().quantity){
+              database.collection("spare_supplies").doc(spareSupplyID).delete();
+            }
+          });
+        });
+
+      });
+    });
+  });
 }
 
 function getTotalPoints(hospitalID){

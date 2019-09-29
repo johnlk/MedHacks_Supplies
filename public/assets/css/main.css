@@ -86,16 +86,21 @@ header ul li {
   float: right;
 }
 
+header ul li:hover {
+  cursor: pointer;
+}
+
 header ul li:first-child {
 	float: left;
 }
 
 #header ul li a {
-	text-decoration: none;
+  text-decoration: none;
+  border: none;
 }
 
 #header ul li a:hover {
-	color: blue;
+  color: blue;
 }
 
 .centered-container {

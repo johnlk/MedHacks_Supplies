@@ -4,7 +4,8 @@
 		<title>Solid State by HTML5 UP</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/loading.css">
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 	</head>
 	<body class="is-preload">
@@ -30,11 +31,19 @@
         </div>
       </div>
     </div>
+
+    <div id="loading">
+      <div>
+        <img src="assets/css/images/loading.gif" />
+      </div>
+    </div>
+
   </body>
   
   <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase.js"></script>
   <script src="assets/js/init.js"></script>
   <script src="assets/js/auth.js"></script>
+  <script src="assets/js/loading.js"></script>
 
   <script>
     var loginButton = document.getElementById('login');
@@ -42,9 +51,9 @@
     loginButton.addEventListener('click', intiateLogin);
 
     function intiateLogin(){
+      showLoading();
       var email = document.getElementById('email').value;
       var password = document.getElementById('password').value;
-
 
       if(email == '' || password == ''){
         alert('input an email and a password');
@@ -52,8 +61,10 @@
 
       login(email, password).then((response) => {
         window.location = "./leaderboard.html";
+        hideLoading();
       }).catch((error) => {
         alert(error);
+        hideLoading();
       });
     }
   </script>
