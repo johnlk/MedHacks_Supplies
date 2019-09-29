@@ -85,7 +85,13 @@ function completeTransaction(transactionObj){
         transactionObj['points'] = response;
 
         database.collection("transactions").add(transactionObj).then(() => {
-          resolve('success');
+
+          needFulfilled.delete().then((response) => {
+            resolve('success');
+          }).catch((error) => {
+            reject(error.message);
+          });
+
         }).catch((error) => {
           reject(error.message);
         });
