@@ -31,20 +31,12 @@
                 <div class="col-12">
                   <label for="demo-category">Hospital</label>
                   <select name="demo-category" id="hospital">
-                    <option value="1">John's Hopkins</option>
                   </select>
                 </div>
 
                 <div class="col-12">
                   <label for="demo-category">Product you wish to use</label>
                   <select name="demo-category" id="product">
-                    <option value="1">Rubber Gloves</option>
-                    <option value="2">Latex Gloves</option>
-                    <option value="3">Latex Condoms</option>
-                    <option value="4">Fake Ta-tas</option>
-                    <option value="5">Big Black Dildo</option>
-                    <option value="6">Ram Rod</option>
-                    <option value="7">What the hell's a ram rod</option>
                   </select>
                 </div>
 
@@ -78,6 +70,23 @@
       <script src="assets/js/manageHeader.js"></script>
 
       <script>
+        //populate hospital options
+        var hospitals = document.getElementById('hospital');
+        database.collection("hospitals").get().then(function(querySnapshot) {
+          querySnapshot.forEach(function(doc) {
+            hospitals.innerHTML += '<option value="' + doc.id + '">' + doc.data().name + '</option>';
+          })
+        });
+
+
+        //populate product options
+        var products = document.getElementById('product');
+        database.collection("products").get().then(function(querySnapshot) {
+          querySnapshot.forEach(function(doc) {
+            products.innerHTML += '<option value="' + doc.id + '">' + doc.data().name + '</option>';
+          })
+        });
+
         var requestButton = document.getElementById('request');
 
         requestButton.addEventListener('click', function(){
